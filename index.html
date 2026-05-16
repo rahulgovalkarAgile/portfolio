@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul Govalkar | Senior Scrum Master & Agile Delivery Lead</title>
+    <link href="https://fontsource.org/fonts/inter/latin.css" rel="stylesheet">
+    <link href="https://fontsource.org/fonts/playfair-display/latin.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --navy-deep: #0a0e17;
+            --navy: #0f172a;
+            --navy-light: #1e293b;
+            --gold: #c9a227;
+            --gold-light: #e0b451;
+            --gold-muted: rgba(201, 162, 39, 0.15);
+            --white: #f8fafc;
+            --white-muted: #94a3b8;
+            --accent: #3b82f6;
+            --glass: rgba(15, 23, 42, 0.6);
+            --glass-border: rgba(201, 162, 39, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--navy-deep);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--navy-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.25rem 5%;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.4s;
+        }
+
+        nav.scrolled {
+            padding: 0.75rem 5%;
+            background: rgba(10, 14, 23, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--white-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold-light);
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: var(--gold-muted);
+            border: 1px solid var(--glass-border);
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            color: var(--gold-light);
+            letter-spacing: 0.5px;
+        }
+
+        .hero-badge i {
+            font-size: 1rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--white-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--white-muted);
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy-deep);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(201, 162, 39, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .metric-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 25px rgba(201, 162, 39, 0.15);
+        }
+
+        .metric-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: var(--white-muted);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            color: var(--gold);
+            font-size: 1.5rem;
+            opacity: 0.7;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            color: var(--white-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Leadership Blueprint Section */
+        .blueprint-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .blueprint-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.4), rgba(15, 23, 42, 0.6));
+            backdrop-filter: blur(10px);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blueprint-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s;
+        }
+
+        .blueprint-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .blueprint-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .blueprint-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--gold-muted), rgba(201, 162, 39, 0.3));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--gold-light);
+            font-size: 1.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .blueprint-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .blueprint-desc {
+            color: var(--white-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .blueprint-quote {
+            font-style: italic;
+            color: var(--gold-light);
+            font-size: 0.9rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--gold);
+            margin-top: 1rem;
+        }
+
+        /* Skills Matrix */
+        .skills-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.3), rgba(15, 23, 42, 0.5));
+            backdrop-filter: blur(10px);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .skill-category-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-category-title i {
+            color: var(--gold);
+        }
+
+        .skill-item {
+            margin-bottom: 1.25rem;
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: rgba(201, 162, 39, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            border-radius: 3px;
+            width: 0;
+            transition: width 1.5s ease-out;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .skill-tag {
+            background: var(--gold-muted);
+            color: var(--gold-light);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--gold), var(--glass-border), transparent);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid var(--navy-deep);
+            box-shadow: 0 0 15px rgba(201, 162, 39, 0.3);
+        }
+
+        .timeline-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--gold-light);
+            font-weight: 500;
+            font-size: 1rem;
+        }
+
+        .timeline-date {
+            color: var(--white-muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .timeline-bullets {
+            list-style: none;
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .timeline-bullets li {
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--white-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .timeline-bullets li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .timeline-highlight {
+            background: var(--gold-muted);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        /* Projects Showcase */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.3), rgba(15, 23, 42, 0.5));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            transition: all 0.4s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .project-header {
+            padding: 2.5rem 2rem 1.5rem;
+        }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-desc {
+            color: var(--white-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-metric {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--gold-muted);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .project-metric i {
+            color: var(--gold);
+            font-size: 1.25rem;
+        }
+
+        .project-metric-text {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .project-tech {
+            padding: 1.5rem 2rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .project-badge {
+            background: var(--gold-muted);
+            color: var(--gold-light);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold-light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0 2rem 2rem;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover {
+            gap: 0.75rem;
+            color: var(--gold);
+        }
+
+        /* Certifications */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.3), rgba(15, 23, 42, 0.5));
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .cert-card:hover {
+            border-color: var(--gold);
+            transform: translateX(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .cert-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold-muted);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-light);
+            font-size: 1.25rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .cert-info {
+            flex: 1;
+        }
+
+        .cert-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cert-issuer {
+            color: var(--white-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 3rem auto 0;
+        }
+
+        .contact-card {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.3), rgba(15, 23, 42, 0.5));
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gold-muted);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--gold-light);
+            font-size: 1.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .contact-label {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            color: var(--white-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 5%;
+            background: var(--navy);
+            color: var(--white-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger {
+            transition-delay: calc(var(--i) * 0.1s);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 14, 23, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                border-bottom: 1px solid var(--glass-border);
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .timeline {
+                padding-left: 2rem;
+            }
+
+            .timeline-dot {
+                left: -2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Rahul Govalkar</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#blueprint">Blueprint</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-star"></i> Certified ScrumMaster® | AI-Augmented Agile Delivery
+            </div>
+            <h1>Architecting Delivery Systems That Scale Under Pressure</h1>
+            <p class="hero-subtitle">
+                Senior Scrum Master managing 7 concurrent Agile teams across BFSI, Insurance/TPA, and AI/ML domains. 
+                I transform chaotic workflows into predictable, high-performing delivery engines through data-driven frameworks, 
+                AI integration, and executive-level governance.
+            </p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Discuss Opportunities
+                </a>
+                <a href="#experience" class="btn btn-outline">
+                    <i class="fas fa-chart-line"></i> View Track Record
+                </a>
+            </div>
+            <div class="hero-metrics">
+                <div class="metric-card fade-in stagger" style="--i:0">
+                    <div class="metric-number" data-target="7">0</div>
+                    <div class="metric-label">Concurrent Teams</div>
+                </div>
+                <div class="metric-card fade-in stagger" style="--i:1">
+                    <div class="metric-number" data-target="3">0</div>
+                    <div class="metric-label">x Velocity Growth</div>
+                </div>
+                <div class="metric-card fade-in stagger" style="--i:2">
+                    <div class="metric-number" data-target="256">0</div>
+                    <div class="metric-label">Sprint Reports</div>
+                </div>
+                <div class="metric-card fade-in stagger" style="--i:3">
+                    <div class="metric-number" data-target="100">0</div>
+                    <div class="metric-label">% Ceremony Delivery</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header fade-in">
+            <div class="section-tag">About Me</div>
+            <h2 class="section-title">Beyond Ceremonies: Building Predictable Delivery</h2>
+            <p class="section-subtitle">A proven track record of transforming ad-hoc workflows into enterprise-grade delivery systems</p>
+        </div>
+        <div class="blueprint-grid">
+            <div class="blueprint-card fade-in stagger" style="--i:0">
+                <div class="blueprint-icon"><i class="fas fa-compass"></i></div>
+                <h3 class="blueprint-title">The Operator</h3>
+                <p class="blueprint-desc">Currently managing 7 concurrent Agile teams across BFSI, Insurance/TPA, and AI/ML domains. I don't just facilitate sprints—I design delivery frameworks from scratch that scale.</p>
+                <div class="blueprint-quote">"Agile isn't about running more meetings. It's about removing the friction between them."</div>
+            </div>
+            <div class="blueprint-card fade-in stagger" style="--i:1">
+                <div class="blueprint-icon"><i class="fas fa-shield-halved"></i></div>
+                <h3 class="blueprint-title">The Compliance Integrator</h3>
+                <p class="blueprint-desc">Coordinated 46 VAPT remediations and 70+ GHAS security alerts within active sprints without derailing feature delivery. I make security compliance invisible to developers but visible to auditors.</p>
+                <div class="blueprint-quote">"Security isn't a blocker. It's another user story with the right prioritization."</div>
+            </div>
+            <div class="blueprint-card fade-in stagger" style="--i:2">
+                <div class="blueprint-icon"><i class="fas fa-robot"></i></div>
+                <h3 class="blueprint-title">The AI Delivery Leader</h3>
+                <p class="blueprint-desc">Built <strong>AI-Agent-Suite</strong>: An enterprise AI workforce platform with 435 specialized agents. Engineered custom AST-based parsing to achieve 95% token efficiency in complex engineering workflows. I build the delivery infrastructure that scales.</p>
+                <div class="blueprint-quote">"Innovation is moving 95% of the friction out of the developer's way."</div>
+            </div>
+            <div class="blueprint-card fade-in stagger" style="--i:3">
+                <div class="blueprint-icon"><i class="fas fa-chart-bar"></i></div>
+                <h3 class="blueprint-title">The Data-Driven Leader</h3>
+                <p class="blueprint-desc">Drove sprint velocity 3x (7→22+ SP) through data-driven 10-SP buffer models. Authored CEO-level strategic reviews rated Green. I don't guess capacity—I calculate it from 6 sprints of historical variance.</p>
+                <div class="blueprint-quote">"Buffers aren't sandbagging. They're honesty calibrated to reality."</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Blueprint Section -->
+    <section id="blueprint">
+        <div class="section-header fade-in">
+            <div class="section-tag">Leadership Blueprint</div>
+            <h2 class="section-title">Core Operating Principles</h2>
+            <p class="section-subtitle">The foundational patterns that drive my delivery approach, refined through 8+ years of enterprise experience</p>
+        </div>
+        <div class="blueprint-grid">
+            <div class="blueprint-card fade-in stagger" style="--i:0">
+                <div class="blueprint-icon"><i class="fas fa-anchor"></i></div>
+                <h3 class="blueprint-title">Strategic Discipline</h3>
+                <p class="blueprint-desc">Long-term architecture over short-term wins. I build delivery systems that compound value over time, not just meet quarterly targets. This means investing in frameworks, documentation, and team capability today for exponential returns tomorrow.</p>
+                <div class="blueprint-quote">"Service through discipline and patience."</div>
+            </div>
+            <div class="blueprint-card fade-in stagger" style="--i:1">
+                <div class="blueprint-icon"><i class="fas fa-network-wired"></i></div>
+                <h3 class="blueprint-title">Communication Mastery</h3>
+                <p class="blueprint-desc">Success through structured analysis and precise coordination. I bridge the gap between technical teams and executive stakeholders by translating complex delivery metrics into actionable business narratives. Every report tells a story; every meeting drives a decision.</p>
+                <div class="blueprint-quote">"The best facilitators don't speak the most—they ask the right questions."</div>
+            </div>
+            <div class="blueprint-card fade-in stagger" style="--i:2">
+                <div class="blueprint-icon"><i class="fas fa-microscope"></i></div>
+                <h3 class="blueprint-title">Analytical Excellence</h3>
+                <p class="blueprint-desc">Process optimization through deep system thinking. I identify bottlenecks before they become blockers, using data patterns to predict capacity constraints and dependency conflicts. My 6-sprint variance analysis became the foundation of our sprint buffer model.</p>
+                <div class="blueprint-quote">"If you can't measure it, you can't manage it. If you can't automate it, you can't scale it."</div>
+            </div>
+            <div class="blueprint-card fade-in stagger" style="--i:3">
+                <div class="blueprint-icon"><i class="fas fa-crown"></i></div>
+                <h3 class="blueprint-title">Institutional Authority</h3>
+                <p class="blueprint-desc">Built for structured hierarchy and long-term credibility. I thrive in regulated environments (HIPAA, GDPR, VAPT) where process maturity matters as much as delivery speed. My framework designs become organizational standards, not just team practices.</p>
+                <div class="blueprint-quote">"Authority isn't given by title. It's earned by consistent, repeatable results."</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Matrix -->
+    <section id="skills">
+        <div class="section-header fade-in">
+            <div class="section-tag">Skills Matrix</div>
+            <h2 class="section-title">Technical & Delivery Expertise</h2>
+            <p class="section-subtitle">A balanced blend of Agile methodology, technical depth, and executive communication</p>
+        </div>
+        <div class="skills-matrix">
+            <div class="skill-category fade-in stagger" style="--i:0">
+                <div class="skill-category-title"><i class="fas fa-code"></i> Agile & Delivery Frameworks</div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Scrum / Scrumban Design</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Sprint Velocity Optimization</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Multi-Team Orchestration</span><span>92%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="92%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>SAFe Program Delivery</span><span>75%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="75%"></div></div>
+                </div>
+            </div>
+            <div class="skill-category fade-in stagger" style="--i:1">
+                <div class="skill-category-title"><i class="fas fa-robot"></i> AI & Technical Integration</div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>AI Workflow Design (MCP/VLM)</span><span>85%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="85%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Full-Stack Development (Node/React)</span><span>80%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="80%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Process Automation</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Developer Tool Adoption</span><span>88%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="88%"></div></div>
+                </div>
+            </div>
+            <div class="skill-category fade-in stagger" style="--i:2">
+                <div class="skill-category-title"><i class="fas fa-shield-alt"></i> Compliance & Governance</div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>VAPT / GHAS Remediation</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>HIPAA / GDPR Compliance</span><span>90%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="90%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Change Management</span><span>92%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="92%"></div></div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-header"><span>Executive Reporting</span><span>95%</span></div>
+                    <div class="skill-bar"><div class="skill-fill" data-width="95%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience">
+        <div class="section-header fade-in">
+            <div class="section-tag">Professional Journey</div>
+            <h2 class="section-title">Career Timeline</h2>
+            <p class="section-subtitle">8+ years across BFSI, SaaS, AI/ML, and Enterprise Technology</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3 class="timeline-title">Scrum Master</h3>
+                    <p class="timeline-company">Procentris India Pvt Ltd | Mumbai, MH</p>
+                    <p class="timeline-date">September 2025 – Present</p>
+                </div>
+                <ul class="timeline-bullets">
+                    <li>Sole SM across <span class="timeline-highlight">7 concurrent Agile teams</span> in <strong>BFSI, Insurance/TPA, and AI/ML</strong> domains; managing cross-functional delivery for enterprise-scale platforms</li>
+                    <li>Built <strong>AI-Agent-Suite</strong> — enterprise AI workforce platform with 435 specialized agents across 14 departments; engineered AST-based code parsing to achieve 95% token efficiency in AI workflows</li>
+                    <li>Used <strong>GEO/SEO agent module</strong> to generate AI visibility reports for a US-based e-commerce platform, directly improving platform discoverability in AI-generated answers (ChatGPT, Perplexity, Gemini)</li>
+                    <li>Designed <strong>universal IDE integration layer</strong> supporting Claude Code, Cursor, VS Code, and JetBrains — enabling developers to access domain-specific agents within their existing workflow</li>
+                    <li>Implemented <code>/autoresearch</code> autonomous optimization loops and self-learning skills architecture, allowing agents to improve delivery cycles overnight</li>
+                    <li>Designed a bi-weekly Sprint + weekly "Continuous Release" protocol from scratch to resolve ad-hoc delivery friction; scaled team velocity 3.1x (7 to 22+ SP) via a data-driven 10-SP variance buffer model</li>
+                    <li>Faced with 46 critical VAPT vulnerabilities and 70+ GHAS alerts that threatened a major production deadline, I engineered a security-remediation pipeline within active sprints, achieving 100% compliance with zero story-point leakage</li>
+                    <li>To solve the lack of executive visibility across 7 departments, I architected a Strategic Quarterly Review framework for the CEO; successfully pivoted 4+ platforms to "Green" status through data-backed governance narratives</li>
+                    <li>Engineered AI regression suite: 302 test scenarios from 146 KT videos using Claude Vision + Gemini Flash MCP workflows</li>
+                    <li>Built & deployed 2 internal production tools (Node.js/PostgreSQL) accepted onto company servers</li>
+                    <li>Engineered a "High-Velocity Escalation Protocol" to resolve a 40% delivery lag caused by external dependency bottlenecks</li>
+                </ul>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3 class="timeline-title">Scrum Master | QA Analyst</h3>
+                    <p class="timeline-company">MSCI | Mumbai, MH</p>
+                    <p class="timeline-date">March 2022 – August 2025</p>
+                </div>
+                <ul class="timeline-bullets">
+                    <li>Facilitated Scrum ceremonies for 2 cross-functional teams; boosted team velocity by <span class="timeline-highlight">20%</span> over 2 quarters</li>
+                    <li>Integrated QA criteria into Definition of Done; reduced post-release defects by <span class="timeline-highlight">25%</span></li>
+                    <li>Championed test automation (Playwright, Excel VBA), cutting manual testing effort by <span class="timeline-highlight">20%</span></li>
+                    <li>Contributed to <span class="timeline-highlight">95% on-time</span> project completion rate through stakeholder alignment</li>
+                </ul>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3 class="timeline-title">Real Estate Data Analyst</h3>
+                    <p class="timeline-company">MSCI | Mumbai, MH</p>
+                    <p class="timeline-date">February 2020 – March 2021</p>
+                </div>
+                <ul class="timeline-bullets">
+                    <li>Optimized data reporting workflows using Excel VBA automation, achieving <span class="timeline-highlight">15% efficiency gain</span></li>
+                    <li>Applied Agile principles in data analytics projects across sprint execution and backlog refinement</li>
+                </ul>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3 class="timeline-title">Mutual Fund Operations Associate — Intern</h3>
+                    <p class="timeline-company">Bombay Stock Exchange (BSE) India | Mumbai, MH</p>
+                    <p class="timeline-date">July 2019 – January 2020</p>
+                </div>
+                <ul class="timeline-bullets">
+                    <li>Streamlined operations via Excel Power Query & VBA macros, improving efficiency by <span class="timeline-highlight">30%</span></li>
+                    <li>Ensured regulatory compliance in investor onboarding (KYC, FATCA, UBO validation)</li>
+                </ul>
+            </div>
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-header">
+                    <h3 class="timeline-title">Associate — Financial Operations</h3>
+                    <p class="timeline-company">State Street Syntel Services Pvt Ltd | Mumbai, MH</p>
+                    <p class="timeline-date">July 2016 – August 2018</p>
+                </div>
+                <ul class="timeline-bullets">
+                    <li>Processed high-volume financial transactions for global banking client (Deutsche Bank) with 100% data integrity</li>
+                    <li>Resolved transaction discrepancies across finance teams, reducing reconciliation time by <span class="timeline-highlight">20%</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Showcase -->
+    <section id="projects">
+        <div class="section-header fade-in">
+            <div class="section-tag">Featured Work</div>
+            <h2 class="section-title">Impact Projects</h2>
+            <p class="section-subtitle">Production-grade tools and AI workflows built for enterprise delivery</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card fade-in stagger" style="--i:0">
+                <div class="project-header">
+                    <h3 class="project-title">AI-Agent-Suite: Enterprise AI Workforce Platform</h3>
+                    <p class="project-desc">Flagship orchestration framework featuring 435 specialized agents across 14 departments. Solves the token-bloat problem via engineered AST-based parsing (95% efficiency) and implemented <code>/autoresearch</code> autonomous optimization loops for self-learning delivery.</p>
+                    <div class="project-metric">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="project-metric-text"><strong>Client Application:</strong> Generated AI visibility reports (GEO/SEO) for US E-commerce platform to improve discoverability.</div>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span class="project-badge">Agent Orchestration</span>
+                    <span class="project-badge">AST-Parsing Engine</span>
+                    <span class="project-badge">Universal IDE Integration</span>
+                    <span class="project-badge">/autoresearch Loops</span>
+                </div>
+                <a href="https://github.com/rahulgovalkarAgile/Ai-Agents-Teams" target="_blank" class="project-link">
+                    View Flagship Repository <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="project-card fade-in stagger" style="--i:1">
+                <div class="project-header">
+                    <h3 class="project-title">SaaS Subscription Management System</h3>
+                    <p class="project-desc">Internal SaaS spend dashboard tracking employee-tool assignments, renewal alerts, and license utilization. Built from scratch using Node.js, Express, PostgreSQL, and Prisma ORM. Hosted on company servers.</p>
+                    <div class="project-metric">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="project-metric-text">Accepted by CEO & Senior Management</div>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span class="project-badge">Node.js</span>
+                    <span class="project-badge">Express</span>
+                    <span class="project-badge">PostgreSQL</span>
+                    <span class="project-badge">Prisma</span>
+                    <span class="project-badge">JWT Auth</span>
+                </div>
+                <a href="https://github.com/rahulgovalkarAgile/Subscription-management" target="_blank" class="project-link">
+                    View Repository <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="project-card fade-in stagger" style="--i:1">
+                <div class="project-header">
+                    <h3 class="project-title">AI Regression Test Suite Generator</h3>
+                    <p class="project-desc">Engineered workflow using Claude Video Vision MCP + Gemini Flash to analyze 146 KT videos and generate 302 test scenarios (151 positive/151 negative), cross-validated against live GitHub codebase.</p>
+                    <div class="project-metric">
+                        <i class="fas fa-robot"></i>
+                        <div class="project-metric-text">302 Scenarios Generated | Zero Production Incidents</div>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span class="project-badge">Claude AI Vision</span>
+                    <span class="project-badge">Gemini Flash</span>
+                    <span class="project-badge">MCP Workflow</span>
+                    <span class="project-badge">GitHub API</span>
+                </div>
+            </div>
+            <div class="project-card fade-in stagger" style="--i:2">
+                <div class="project-header">
+                    <h3 class="project-title">Legal Document Automation</h3>
+                    <p class="project-desc">Automated manual processing of 1,500 records across 23 Excel sheets. Segregated legal docs, embedded Word files, and validated page counts automatically.</p>
+                    <div class="project-metric">
+                        <i class="fas fa-clock"></i>
+                        <div class="project-metric-text">Reduced turnaround from 7 days to 2 days (71% efficiency gain)</div>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span class="project-badge">Automation Script</span>
+                    <span class="project-badge">Excel Processing</span>
+                    <span class="project-badge">Doc Embedding</span>
+                    <span class="project-badge">Validation Logic</span>
+                </div>
+            </div>
+            <div class="project-card fade-in stagger" style="--i:3">
+                <div class="project-header">
+                    <h3 class="project-title">Employee Exit Checklist</h3>
+                    <p class="project-desc">Automated digital offboarding workflow replacing manual HR processes. Streamlines exit checklists, asset returns, and knowledge transfer tracking for seamless employee transitions.</p>
+                    <div class="project-metric">
+                        <i class="fas fa-building"></i>
+                        <div class="project-metric-text">Production-Deployed on Company Infrastructure</div>
+                    </div>
+                </div>
+                <div class="project-tech">
+                    <span class="project-badge">Node.js</span>
+                    <span class="project-badge">Express</span>
+                    <span class="project-badge">PostgreSQL</span>
+                    <span class="project-badge">AI-Assisted Dev</span>
+                </div>
+                <a href="https://github.com/rahulgovalkarAgile/EmployeeExitManagement" target="_blank" class="project-link">
+                    View Repository <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications">
+        <div class="section-header fade-in">
+            <div class="section-tag">Credentials</div>
+            <h2 class="section-title">Certifications & Education</h2>
+            <p class="section-subtitle">Continuous validation of expertise in Agile, AI, and IT Project Management</p>
+        </div>
+        <div class="certs-grid">
+            <div class="cert-card fade-in stagger" style="--i:0">
+                <div class="cert-icon"><i class="fas fa-certificate"></i></div>
+                <div class="cert-info">
+                    <div class="cert-title">Certified ScrumMaster® (CSM)</div>
+                    <div class="cert-issuer">Scrum Alliance · March 2025</div>
+                </div>
+            </div>
+            <div class="cert-card fade-in stagger" style="--i:1">
+                <div class="cert-icon"><i class="fas fa-brain"></i></div>
+                <div class="cert-info">
+                    <div class="cert-title">AI for Scrum Masters — Micro-credential</div>
+                    <div class="cert-issuer">Scrum Alliance · November 2025</div>
+                </div>
+            </div>
+            <div class="cert-card fade-in stagger" style="--i:2">
+                <div class="cert-icon"><i class="fas fa-robot"></i></div>
+                <div class="cert-info">
+                    <div class="cert-title">Artificial Intelligence Professional Agilist™</div>
+                    <div class="cert-issuer">LAAU · 2025</div>
+                </div>
+            </div>
+            <div class="cert-card fade-in stagger" style="--i:3">
+                <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
+                <div class="cert-info">
+                    <div class="cert-title">Mastering Jira® with Atlassian® Intelligence & ROVO®</div>
+                    <div class="cert-issuer">Udemy (GenMan Solutions) · September 2025</div>
+                </div>
+            </div>
+            <div class="cert-card fade-in stagger" style="--i:4">
+                <div class="cert-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="cert-info">
+                    <div class="cert-title">PGDM – IT Project Management (In Progress)</div>
+                    <div class="cert-issuer">Welingkar Institute of Management · Expected Sep 2026</div>
+                </div>
+            </div>
+            <div class="cert-card fade-in stagger" style="--i:5">
+                <div class="cert-icon"><i class="fas fa-university"></i></div>
+                <div class="cert-info">
+                    <div class="cert-title">Bachelor of Commerce (B.Com)</div>
+                    <div class="cert-issuer">Mumbai University · 2013 – 2016</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="section-header fade-in">
+            <div class="section-tag">Get In Touch</div>
+            <h2 class="section-title">Let's Build Something Predictable</h2>
+            <p class="section-subtitle">Open to Senior Scrum Master & Agile Delivery Lead opportunities at GCCs and BFSI enterprises</p>
+        </div>
+        <div class="contact-grid">
+            <a href="mailto:rahulgovalkar.agile@gmail.com" class="contact-card fade-in stagger" style="--i:0">
+                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                <div class="contact-label">Email</div>
+                <div class="contact-value">rahulgovalkar.agile@gmail.com</div>
+            </a>
+            <a href="https://linkedin.com/in/rahulgovalkar" target="_blank" class="contact-card fade-in stagger" style="--i:1">
+                <div class="contact-icon"><i class="fab fa-linkedin-in"></i></div>
+                <div class="contact-label">LinkedIn</div>
+                <div class="contact-value">linkedin.com/in/rahulgovalkar</div>
+            </a>
+            <a href="https://github.com/rahulgovalkarAgile" target="_blank" class="contact-card fade-in stagger" style="--i:2">
+                <div class="contact-icon"><i class="fab fa-github"></i></div>
+                <div class="contact-label">GitHub</div>
+                <div class="contact-value">github.com/rahulgovalkarAgile</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rahul Govalkar. Crafted with precision for enterprise Agile delivery.</p>
+    </footer>
+
+    <script>
+        // Background Canvas Animation (Network/Nodes)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        const particleCount = 60;
+        const connectionDistance = 150;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(201, 162, 39, 0.3)';
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            particles.forEach((p, i) => {
+                p.update();
+                p.draw();
+
+                // Draw connections
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = p.x - particles[j].x;
+                    const dy = p.y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = 1 - distance / connectionDistance;
+                        ctx.beginPath();
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(201, 162, 39, ${opacity * 0.15})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            initParticles();
+        });
+
+        resize();
+        initParticles();
+        animate();
+
+        // Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate skill bars
+                    if (entry.target.querySelector('.skill-fill')) {
+                        entry.target.querySelectorAll('.skill-fill').forEach(bar => {
+                            bar.style.width = bar.getAttribute('data-width');
+                        });
+                    }
+                    
+                    // Animate counters
+                    if (entry.target.querySelector('.metric-number')) {
+                        entry.target.querySelectorAll('.metric-number').forEach(num => {
+                            const target = parseInt(num.getAttribute('data-target'));
+                            let current = 0;
+                            const increment = target / 40;
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    current = target;
+                                    clearInterval(timer);
+                                }
+                                num.textContent = Math.floor(current);
+                            }, 50);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Active Navigation Link
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 300) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
