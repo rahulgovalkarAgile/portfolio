@@ -146,7 +146,72 @@
 
         .hero-content {
             max-width: 1200px;
+            width: 100%;
             text-align: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 4rem;
+            text-align: left;
+        }
+
+        .hero-text-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hero-text-col h1 {
+            text-align: left;
+        }
+
+        .hero-text-col .hero-subtitle {
+            margin-left: 0;
+            text-align: left;
+        }
+
+        .hero-text-col .hero-cta {
+            justify-content: flex-start;
+        }
+
+        .hero-video-col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 40px rgba(201, 162, 39, 0.1);
+            background: var(--navy);
+            transition: all 0.4s ease;
+        }
+
+        .video-wrapper:hover {
+            transform: translateY(-5px) scale(1.01);
+            border-color: var(--gold);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 
+                        0 0 50px rgba(201, 162, 39, 0.25);
+        }
+
+        .hero-video {
+            width: 100%;
+            display: block;
+            border-radius: 19px;
+            object-fit: cover;
+            aspect-ratio: 16/9;
         }
 
         .hero-badge {
@@ -796,6 +861,37 @@
         }
 
         /* Responsive */
+        @media (max-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+                margin-bottom: 3rem;
+            }
+
+            .hero-text-col {
+                align-items: center;
+            }
+
+            .hero-text-col h1 {
+                text-align: center;
+            }
+
+            .hero-text-col .hero-subtitle {
+                margin-left: auto;
+                text-align: center;
+            }
+
+            .hero-text-col .hero-cta {
+                justify-content: center;
+            }
+
+            .video-wrapper {
+                max-width: 540px;
+                margin: 0 auto;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -865,22 +961,34 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-star"></i> Certified ScrumMaster® | AI-Augmented Agile Delivery
-            </div>
-            <h1>Architecting Delivery Systems That Scale Under Pressure</h1>
-            <p class="hero-subtitle">
-                Senior Scrum Master managing 7 concurrent Agile teams across BFSI, Insurance/TPA, and AI/ML domains. 
-                I transform chaotic workflows into predictable, high-performing delivery engines through data-driven frameworks, 
-                AI integration, and executive-level governance.
-            </p>
-            <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-paper-plane"></i> Discuss Opportunities
-                </a>
-                <a href="#experience" class="btn btn-outline">
-                    <i class="fas fa-chart-line"></i> View Track Record
-                </a>
+            <div class="hero-grid">
+                <div class="hero-text-col">
+                    <div class="hero-badge">
+                        <i class="fas fa-star"></i> Certified ScrumMaster® | AI-Augmented Agile Delivery
+                    </div>
+                    <h1>Architecting Delivery Systems That Scale Under Pressure</h1>
+                    <p class="hero-subtitle">
+                        Senior Scrum Master managing 7 concurrent Agile teams across BFSI, Insurance/TPA, and AI/ML domains. 
+                        I transform chaotic workflows into predictable, high-performing delivery engines through data-driven frameworks, 
+                        AI integration, and executive-level governance.
+                    </p>
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Discuss Opportunities
+                        </a>
+                        <a href="#experience" class="btn btn-outline">
+                            <i class="fas fa-chart-line"></i> View Track Record
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-video-col">
+                    <div class="video-wrapper">
+                        <video class="hero-video" controls playsinline autoplay muted loop preload="auto">
+                            <source src="RahulScrumMaster_Combined.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
             </div>
             <div class="hero-metrics">
                 <div class="metric-card fade-in stagger" style="--i:0">
