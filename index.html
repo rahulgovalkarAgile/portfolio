@@ -181,9 +181,11 @@
 
         .hero-video-col {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             width: 100%;
+            gap: 1.5rem;
         }
 
         .video-wrapper {
@@ -212,6 +214,81 @@
             border-radius: 19px;
             object-fit: cover;
             aspect-ratio: 16/9;
+        }
+
+        .hero-resume-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 480px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .hero-resume-box:hover {
+            border-color: var(--gold-muted);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .resume-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .resume-label i {
+            color: var(--gold);
+            font-size: 1.25rem;
+        }
+
+        .resume-buttons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .btn-resume {
+            padding: 0.6rem 1.25rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-resume-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--navy-deep);
+        }
+
+        .btn-resume-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(201, 162, 39, 0.3);
+        }
+
+        .btn-resume-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--glass-border);
+        }
+
+        .btn-resume-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--gold);
+            transform: translateY(-2px);
         }
 
         .hero-badge {
@@ -987,6 +1064,17 @@
                             <source src="RahulScrumMaster_Combined.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
+                    </div>
+                    <div class="hero-resume-box">
+                        <span class="resume-label"><i class="far fa-file-pdf"></i> Executive Resume</span>
+                        <div class="resume-buttons">
+                            <a href="Rahul_Govalkar_Resume.pdf" target="_blank" class="btn-resume btn-resume-outline">
+                                <i class="far fa-eye"></i> View
+                            </a>
+                            <a href="Rahul_Govalkar_Resume.docx" download class="btn-resume btn-resume-primary">
+                                <i class="fas fa-download"></i> Download
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
